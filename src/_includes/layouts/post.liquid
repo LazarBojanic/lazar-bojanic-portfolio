@@ -1,0 +1,48 @@
+---
+layout: layouts/base.liquid
+---
+
+<article class="post-container">
+    <a href="/blog/" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+        </svg>
+        Blog
+    </a>
+
+    <header class="post-header">
+        <div class="post-meta-top">
+            {% if date %}
+                <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
+            {% endif %}
+            {% if date and minRead %}
+                <span>•</span>
+            {% endif %}
+            {% if minRead %}
+                <span>{{ minRead }} MIN READ</span>
+            {% endif %}
+        </div>
+
+        {% if image %}
+            <img src="{{ image }}" alt="{{ title }}" class="post-featured-image"/>
+        {% endif %}
+
+        <h1 class="post-title">{{ title }}</h1>
+
+        {% if description %}
+            <p class="post-description">{{ description }}</p>
+        {% endif %}
+
+        <div class="post-author">
+            <img src="{{ author.avatar | default: site.author.avatar }}"
+                 alt="{{ author.name | default: site.author.name }}" class="author-avatar"/>
+            <span class="author-name">{{ author.name | default: site.author.name }}</span>
+        </div>
+    </header>
+
+    <div class="post-body">
+        {{ content }}
+    </div>
+
+</article>

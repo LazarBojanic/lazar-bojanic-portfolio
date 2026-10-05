@@ -1,0 +1,17 @@
+{
+  "name": "lazar-bojanic-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lazar Bojanic Portfolio built with 11ty (Eleventy)",
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "dev": "eleventy --serve --watch",
+    "create-project": "node create-project.js",
+    "swap-projects": "node swap-projects.js"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "3.1.6"
+  }
+}

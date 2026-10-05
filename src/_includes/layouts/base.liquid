@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ description | default: site.description }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}{{ site.title }}">
+    <meta property="og:description" content="{{ description | default: site.description }}">
+    <meta property="og:type" content="website">
+    {% if image %}
+        <meta property="og:image" content="{{ image }}">
+    {% endif %}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Theme Script (Prevent Flash) -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="main-container">
+        {% include "components/header.liquid" %}
+
+        <main>
+            {{ content }}
+        </main>
+
+        {% include "components/footer.liquid" %}
+    </div>
+</div>
+
+<div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+        }
+    });
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2500);
+    }
+
+</script>
+</body>
+</html>
